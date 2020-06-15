@@ -1,4 +1,4 @@
-/// Copyright (c) 2018 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,6 +18,10 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
+/// This project and source code may use libraries or frameworks that are
+/// released under various Open-Source licenses. Use of those libraries and
+/// frameworks are governed by their own individual licenses.
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,36 +34,36 @@ import UIKit
 import SafariServices
 
 class NewsFeedTableViewController: UITableViewController {
-  static let RefreshNewsFeedNotification = Notification.Name(rawValue: "RefreshNewsFeedNotification")
+  static let RefreshNewsFeedNotification = NSNotification.Name(rawValue: "RefreshNewsFeedNotification")
   let newsStore = NewsStore.shared
-  
+
   override var prefersStatusBarHidden: Bool {
     return true
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 75
-    
+
     if let patternImage = UIImage(named: "pattern-grey") {
       let backgroundView = UIView()
       backgroundView.backgroundColor = UIColor(patternImage: patternImage)
       tableView.backgroundView = backgroundView
     }
-    
+
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(NewsFeedTableViewController.receivedRefreshNewsFeedNotification(_:)),
       name: NewsFeedTableViewController.RefreshNewsFeedNotification,
       object: nil)
   }
-  
+
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
-  
+
   @objc func receivedRefreshNewsFeedNotification(_ notification: Notification) {
     DispatchQueue.main.async {
       self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
@@ -69,34 +73,29 @@ class NewsFeedTableViewController: UITableViewController {
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 extension NewsFeedTableViewController {
-  override func tableView(_ tableView: UITableView,
-                          numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return newsStore.items.count
   }
-  
-  override func tableView(_ tableView: UITableView,
-                          cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "NewsItemCell",
-                                             for: indexPath)
+
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "NewsItemCell", for: indexPath)
     if let newsCell = cell as?  NewsItemCell {
       newsCell.updateWithNewsItem(newsStore.items[indexPath.row])
     }
     return cell
   }
-  
-  override func tableView(_ tableView: UITableView,
-                          shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+
+  override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
     let item = newsStore.items[indexPath.row]
     if let url = URL(string: item.link), url.scheme == "https" {
       return true
     }
     return false
   }
-  
-  override func tableView(_ tableView: UITableView,
-                          didSelectRowAt indexPath: IndexPath) {
+
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let item = newsStore.items[indexPath.row]
-    
+
     guard let url = URL(string: item.link) else {
       return
     }

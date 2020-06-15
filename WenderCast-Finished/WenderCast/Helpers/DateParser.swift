@@ -1,4 +1,4 @@
-/// Copyright (c) 2018 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,6 +18,10 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
+/// This project and source code may use libraries or frameworks that are
+/// released under various Open-Source licenses. Use of those libraries and
+/// frameworks are governed by their own individual licenses.
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,19 +32,19 @@
 
 import UIKit
 
-struct DateParser {
+enum DateParser {
   static let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "en_US")
     return formatter
   }()
-  
+
   //Wed, 04 Nov 2015 21:00:14 +0000
   static func dateWithPodcastDateString(_ dateString: String) -> Date? {
     dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss Z"
     return dateFormatter.date(from: dateString)
   }
-  
+
   static func displayString(for date: Date) -> String {
     dateFormatter.dateFormat = "HH:mm MMMM dd, yyyy"
     return dateFormatter.string(from: date)

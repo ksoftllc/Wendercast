@@ -1,4 +1,4 @@
-/// Copyright (c) 2018 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,6 +18,10 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
+/// This project and source code may use libraries or frameworks that are
+/// released under various Open-Source licenses. Use of those libraries and
+/// frameworks are governed by their own individual licenses.
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,13 +34,13 @@ import UIKit
 
 class NewsStore {
   static let shared = NewsStore()
-  
+
   var items: [NewsItem] = []
-  
+
   init() {
     loadItemsFromCache()
   }
-  
+
   func add(item: NewsItem) {
     items.insert(item, at: 0)
     saveItemsToCache()
@@ -54,7 +58,7 @@ extension NewsStore {
       print("Error saving news items: \(error)")
     }
   }
-  
+
   func loadItemsFromCache() {
     do {
       guard FileManager.default.fileExists(atPath: itemsCache.path) else {
@@ -67,10 +71,9 @@ extension NewsStore {
       print("Error loading news items: \(error)")
     }
   }
-  
+
   var itemsCache: URL {
-    let documentsURL = FileManager.default.urls(for: .documentDirectory,
-                                                in: .userDomainMask)[0]
+    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     return documentsURL.appendingPathComponent("news.dat")
   }
 }

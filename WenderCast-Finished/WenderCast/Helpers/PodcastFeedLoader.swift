@@ -1,4 +1,4 @@
-/// Copyright (c) 2018 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -18,6 +18,10 @@
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
 ///
+/// This project and source code may use libraries or frameworks that are
+/// released under various Open-Source licenses. Use of those libraries and
+/// frameworks are governed by their own individual licenses.
+///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,21 +32,22 @@
 
 import UIKit
 
-struct PodcastFeedLoader {
+enum PodcastFeedLoader {
   static let feedURL = "https://www.raywenderlich.com/category/podcast/feed"
-  
+
   static func loadFeed(_ completion: @escaping ([PodcastItem]) -> Void) {
     guard let url = URL(string: feedURL) else { return }
-    
+
     let task = URLSession.shared.dataTask(with: url) { data, _, _ in
       guard let data = data else { return }
-      
+
       let xmlIndexer = SWXMLHash.config { config in
         config.shouldProcessNamespaces = true
-        }.parse(data)
-      
+      }
+      .parse(data)
+
       let items = xmlIndexer["rss"]["channel"]["item"]
-      
+
       let feedItems = items.compactMap { (indexer: XMLIndexer) -> PodcastItem? in
         if
           let dateString = indexer["pubDate"].element?.text,
@@ -51,13 +56,13 @@ struct PodcastFeedLoader {
           let link = indexer["link"].element?.text {
           return PodcastItem(title: title, publishedDate: date, link: link)
         }
-        
+
         return nil
       }
-      
+
       completion(feedItems)
     }
-    
+
     task.resume()
   }
 }
