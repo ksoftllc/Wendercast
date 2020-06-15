@@ -22,10 +22,10 @@
 //  THE SOFTWARE.
 
 // swiftlint exceptions:
-// - Disabled file_length because there are a number of users that still pull the
+// - Disabled raywenderlich.com swiftlint rules because there are a number of users that still pull the
 //   source down as is and it makes pulling the code into a project easier.
 
-// swiftlint:disable file_length
+// swiftlint:disable closure_spacing trailing_closure colon file_length identifier_name indentation_width vertical_whitespace_opening_braces force_unwrapping redundant_discardable_let multiline_parameters_brackets vertical_parameter_alignment
 
 import Foundation
 
