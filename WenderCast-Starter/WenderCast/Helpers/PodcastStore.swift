@@ -34,13 +34,13 @@ import Foundation
 
 class PodcastStore {
   static let sharedStore = PodcastStore()
-  
+
   var items: [PodcastItem] = []
-  
+
   init() {
     loadItemsFromCache()
   }
-  
+
   func refreshItems(_ completion: @escaping (_ didLoadNewItems: Bool) -> Void) {
     PodcastFeedLoader.loadFeed { [weak self] items in
       guard let self = self else {
@@ -65,7 +65,7 @@ extension PodcastStore {
       print("Error saving podcast items: \(error)")
     }
   }
-  
+
   func loadItemsFromCache() {
     do {
       guard FileManager.default.fileExists(atPath: itemsCache.path) else {
@@ -78,10 +78,9 @@ extension PodcastStore {
       print("Error loading podcast items: \(error)")
     }
   }
-  
+
   var itemsCache: URL {
-    let documentsURL = FileManager.default.urls(for: .documentDirectory,
-                                                in: .userDomainMask)[0]
+    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     return documentsURL.appendingPathComponent("podcasts.dat")
   }
 }

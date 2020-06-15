@@ -34,13 +34,13 @@ import UIKit
 
 class NewsStore {
   static let shared = NewsStore()
-  
+
   var items: [NewsItem] = []
-  
+
   init() {
     loadItemsFromCache()
   }
-  
+
   func add(item: NewsItem) {
     items.insert(item, at: 0)
     saveItemsToCache()
@@ -58,7 +58,7 @@ extension NewsStore {
       print("Error saving news items: \(error)")
     }
   }
-  
+
   func loadItemsFromCache() {
     do {
       guard FileManager.default.fileExists(atPath: itemsCache.path) else {
@@ -71,10 +71,9 @@ extension NewsStore {
       print("Error loading news items: \(error)")
     }
   }
-  
+
   var itemsCache: URL {
-    let documentsURL = FileManager.default.urls(for: .documentDirectory,
-                                                in: .userDomainMask)[0]
+    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     return documentsURL.appendingPathComponent("news.dat")
   }
 }
