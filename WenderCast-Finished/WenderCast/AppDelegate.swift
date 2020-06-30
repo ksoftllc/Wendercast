@@ -43,7 +43,10 @@ enum Identifiers {
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
     UNUserNotificationCenter.current().delegate = self
     UITabBar.appearance().barTintColor = UIColor.themeGreenColor
     UITabBar.appearance().tintColor = UIColor.white
@@ -63,8 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(
     _ application: UIApplication,
     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-    fetchCompletionHandler completionHandler:
-    @escaping (UIBackgroundFetchResult) -> Void
+    fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
   ) {
     guard let aps = userInfo["aps"] as? [String: AnyObject] else {
       completionHandler(.failed)
@@ -92,7 +94,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           return
         }
         guard granted else { return }
-        let viewAction = UNNotificationAction(identifier: Identifiers.viewAction, title: "View", options: [.foreground])
+        let viewAction = UNNotificationAction(
+          identifier: Identifiers.viewAction,
+          title: "View",
+          options: [.foreground])
         let newsCategory = UNNotificationCategory(
           identifier: Identifiers.newsCategory,
           actions: [viewAction],
@@ -123,23 +128,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     print("Device Token: \(token)")
   }
 
-  func application( _ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+  func application(
+    _ application: UIApplication,
+    didFailToRegisterForRemoteNotificationsWithError error: Error
+  ) {
     print("Failed to register: \(error)")
   }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-  func userNotificationCenter( _ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+  func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    didReceive response: UNNotificationResponse,
+    withCompletionHandler completionHandler: @escaping () -> Void
+  ) {
     let userInfo = response.notification.request.content.userInfo
+
     if let aps = userInfo["aps"] as? [String: AnyObject],
       let newsItem = NewsItem.makeNewsItem(aps) {
       (window?.rootViewController as? UITabBarController)?.selectedIndex = 1
+
       if response.actionIdentifier == Identifiers.viewAction,
         let url = URL(string: newsItem.link) {
         let safari = SFSafariViewController(url: url)
         window?.rootViewController?.present(safari, animated: true, completion: nil)
       }
     }
+
     completionHandler()
   }
 }
