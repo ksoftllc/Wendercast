@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		18C4956521B492DA00ACD57D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C4956421B492DA00ACD57D /* LaunchScreen.storyboard */; };
-		38A9EB492496FAD100717924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A9EB482496FAD100717924 /* SceneDelegate.swift */; };
 		4D3334751C02DDD800EEB039 /* NewsItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3334741C02DDD800EEB039 /* NewsItemCell.swift */; };
 		4D5A5BC01C29187400B8386B /* AssetAttributions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4D5A5BBF1C29187400B8386B /* AssetAttributions.txt */; };
 		4D67221F1C37691500E08100 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D67221E1C37691500E08100 /* Theme.swift */; };
@@ -31,7 +30,6 @@
 /* Begin PBXFileReference section */
 		18C4956421B492DA00ACD57D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3895979224ABB91A00A05540 /* WenderCast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WenderCast.entitlements; sourceTree = "<group>"; };
-		38A9EB482496FAD100717924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4D3334741C02DDD800EEB039 /* NewsItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemCell.swift; sourceTree = "<group>"; };
 		4D5A5BBF1C29187400B8386B /* AssetAttributions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AssetAttributions.txt; sourceTree = "<group>"; };
 		4D67221E1C37691500E08100 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 			children = (
 				3895979224ABB91A00A05540 /* WenderCast.entitlements */,
 				4DFFBA721BFACF0700A24C84 /* AppDelegate.swift */,
-				38A9EB482496FAD100717924 /* SceneDelegate.swift */,
 				4DFFBA761BFACF0700A24C84 /* Main.storyboard */,
 				4DFFBA8A1BFAD1D400A24C84 /* Models */,
 				4DFFBA8B1BFAD1D400A24C84 /* Views */,
@@ -257,7 +254,6 @@
 				4DFFBA8D1BFAD1D400A24C84 /* SWXMLHash.swift in Sources */,
 				4DBF129E1C010B670020F03C /* PodcastStore.swift in Sources */,
 				4D67221F1C37691500E08100 /* Theme.swift in Sources */,
-				38A9EB492496FAD100717924 /* SceneDelegate.swift in Sources */,
 				4DFFBA931BFAD28600A24C84 /* NewsStore.swift in Sources */,
 				958AD3C62158BA76000C57A4 /* WenderSafariViewController.swift in Sources */,
 				4DBF129C1C010AB80020F03C /* NewsFeedTableViewController.swift in Sources */,
